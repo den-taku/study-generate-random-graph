@@ -1,5 +1,6 @@
 import argparse
 import random
+import tqdm
 
 def main():
     print("Start generating random graph")
@@ -15,11 +16,12 @@ def main():
     random.seed(args.seed)
 
     with open(args.output, 'x') as file:
-        for u in range(args.node):
+        for u in tqdm.tqdm(range(args.node)):
             for v in range(u+1, args.node):
                 if random.random() <= args.probability:
                     file.write("{}\t1\t{}\n".format(u, v))
                     file.write("{}\t1\t{}\n".format(v, u))
+    print("Finished!")
 
 if __name__ == "__main__":
     main()
